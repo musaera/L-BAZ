@@ -13,7 +13,7 @@ function NavBar() {
       className="bg-gray-800 text-white"
     >
       <Container className="mx-4">
-        <Navbar.Brand href="#">LIBAZ</Navbar.Brand>
+        <Navbar.Brand href="#">L-BAZ</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

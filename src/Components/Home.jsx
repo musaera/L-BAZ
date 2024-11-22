@@ -7,7 +7,7 @@ const Home = () => {
       <div className="row">
         <div className="col text-center">
           <h2 className="h2 mt-3">Selamat Datang di</h2>
-          <h1 className="h1 mt-1 text-blue-600">LIBAZ</h1>
+          <h1 className="h1 mt-1 text-blue-600">L-BAZ</h1>
           <p className="p">
             Kelola Pembukuan Anda dengan mudah menggunakan LIBAZ
           </p>
