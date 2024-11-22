@@ -26,6 +26,9 @@ function NavBar() {
             <Nav.Link as={NavLink} to="/create" className="text-blue-400 mr-3">
               Create
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/developer" className="text-blue-400 mr-3">
+              Developer
+            </Nav.Link>
           </Nav>
           <Button
             as={NavLink}

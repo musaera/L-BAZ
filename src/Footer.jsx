@@ -23,11 +23,6 @@ const Footer = () => {
                 SMK TI BAZMA
               </a>
             </li>
-            <li>
-              <a href="/developer" class="hover:underline me-4 md:me-6">
-                Developer
-              </a>
-            </li>
           </ul>
         </div>
         <hr class="border-gray-200 sm:mx-auto dark:border-gray-50 lg:my-8" />
