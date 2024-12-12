@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { NavLink } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ onLogout, isLoggedIn }) {
   return (
     <Navbar
       expand="md"
@@ -12,7 +12,7 @@ function NavBar() {
       variant="dark"
       className="bg-gray-800 text-white"
     >
-      <Container className="mx-4">
+      <Container className="mx-auto">
         <Navbar.Brand href="#">L-BAZ</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -26,17 +26,23 @@ function NavBar() {
             <Nav.Link as={NavLink} to="/create" className="text-blue-400 mr-3">
               Create
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/developer" className="text-blue-400 mr-3">
+            <Nav.Link
+              as={NavLink}
+              to="/developer"
+              className="text-blue-400 mr-3"
+            >
               Developer
             </Nav.Link>
           </Nav>
-          <Button
-            as={NavLink}
-            to="/login"
-            variant="outline-light"
-          >
-            Login
-          </Button>
+          {!isLoggedIn ? (
+            <Button as={NavLink} to="/login" variant="outline-light">
+              Login
+            </Button>
+          ) : (
+            <Button onClick={onLogout} variant="outline-light">
+              Logout
+            </Button>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

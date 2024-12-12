@@ -4,7 +4,7 @@ import { axiosService } from "../Utilities/Apiservices";
 
 const Details = () => {
   const navigate = useNavigate();
-  const { state} = useLocation();
+  const { state } = useLocation();
   const { data } = state;
   const { book, author } = data;
   const { img: bookImg, title, pub, about, ISBN } = book;
@@ -17,7 +17,7 @@ const Details = () => {
   const handleDelete = async (id) => {
     var result = confirm("Are you sure you want to delete?");
     if (result) {
-      let res = await axiosService.delete(`/users/${id}`);
+      let res = await axiosService.delete(`/daftar-buku/${id}`);
       if (res.status == 200) {
         navigate("/dashboard");
       }
@@ -26,7 +26,7 @@ const Details = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-semibold text-gray-900">{title}</h1>
+      <h1 className="text-3xl mb-1 font-semibold text-gray-900">{title}</h1>
       <img
         src={bookImg || defaultBookImgUrl}
         className="img-fluid w-64 rounded-start"
@@ -68,16 +68,16 @@ const Details = () => {
           </div>
         </div>
       </div>
-      <div className="mt-6">
+      <div className="mt-6 flex flex-col sm:flex-row">
         <Link
           to={`/dashboard/${data.id}/edit`}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mr-4 inline-block"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-4 sm:mb-0 sm:mr-4 inline-block"
         >
           Edit
         </Link>
+
         <button
-        to="/dashboard"
-          className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 mr-4 inline-block"
+          className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 mb-4 sm:mb-0 sm:mr-4 inline-block"
           onClick={() => {
             // Implement delete functionality
             handleDelete(data.id);
@@ -86,9 +86,10 @@ const Details = () => {
         >
           Delete
         </button>
+
         <Link
           to="/dashboard"
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mt-6inline-block"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-4 sm:mt-0 sm:mr-4 inline-block"
         >
           Back to Dashboard
         </Link>

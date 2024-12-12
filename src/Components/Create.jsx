@@ -1,8 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { axiosService } from "../Utilities/Apiservices";
@@ -30,24 +26,25 @@ function Create() {
     validationSchema: Yup.object().shape({
       book: Yup.object().shape({
         title: Yup.string().required("Title is Required"),
-        ISBN: Yup.string()
-          
-          .matches(/^\d{13}$/, "Enter a valid 13 - Digit ISBN Number"),
+        ISBN: Yup.string().matches(
+          /^\d{13}$/,
+          "Enter a valid 13 - Digit ISBN Number"
+        ),
         pub: Yup.date().required("Published date Required"),
         about: Yup.string().required("About Book is required"),
         img: Yup.string().required("Image URL is required"),
       }),
       author: Yup.object().shape({
         name: Yup.string().required("Author name is Required"),
-        birth: Yup.date().required("birth date Required"),
+        birth: Yup.date().required("Birth date Required"),
         bio: Yup.string().required("Biography is required"),
         img: Yup.string().required("Image URL is required"),
       }),
     }),
     onSubmit: async (values) => {
       try {
-        let res = await axiosService.post("/users", values);
-        if (res.status == 201) {
+        let res = await axiosService.post("/daftar-buku", values);
+        if (res.status === 201) {
           navigate("/dashboard");
           console.log(res.data);
         }
@@ -58,152 +55,227 @@ function Create() {
   });
 
   return (
-    <Form
-      className="container mt-3 mb-3 px-4"
-      style={{ maxWidth: "780px" }}
+    <form
+      className="container mx-auto mt-6 mb-6 px-4 max-w-2xl"
       onSubmit={formik.handleSubmit}
     >
-      <h1 className="text-xl font-black text-center mb-3 mt-6">Detail Buku</h1>
-      <Form.Group className="mb-3" controlId="formTitle">
-        <Form.Label>Title</Form.Label>
-        <Form.Control
+      <h1 className="text-2xl font-bold text-center mb-6">Detail Buku</h1>
+
+      <div className="mb-4">
+        <label htmlFor="formTitle" className="block text-gray-700 font-medium">
+          Title
+        </label>
+        <input
           type="text"
+          id="formTitle"
           placeholder="Masukkan Judul Buku"
           name="book.title"
+          className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           onChange={formik.handleChange}
           value={formik.values.book.title}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.book?.title && formik.errors.book?.title ? (
-          <div style={{ color: "red" }}>{formik.errors.book.title}</div>
-        ) : null}
-      </Form.Group>
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formISBN">
-          <Form.Label>ISBN</Form.Label>
-          <Form.Control
+        {formik.touched.book?.title && formik.errors.book?.title && (
+          <p className="text-red-500 text-sm mt-1">
+            {formik.errors.book.title}
+          </p>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label htmlFor="formISBN" className="block text-gray-700 font-medium">
+            ISBN
+          </label>
+          <input
             type="text"
+            id="formISBN"
             placeholder="Nomer ISBN"
             name="book.ISBN"
+            className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             onChange={formik.handleChange}
             value={formik.values.book.ISBN}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.book?.ISBN && formik.errors.book?.ISBN ? (
-            <div style={{ color: "red" }}>{formik.errors.book.ISBN}</div>
-          ) : null}
-        </Form.Group>
-        <Form.Group as={Col} controlId="formPublished">
-          <Form.Label>Published</Form.Label>
-          <Form.Control
+          {formik.touched.book?.ISBN && formik.errors.book?.ISBN && (
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.book.ISBN}
+            </p>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="formPublished"
+            className="block text-gray-700 font-medium"
+          >
+            Published
+          </label>
+          <input
             type="date"
+            id="formPublished"
             name="book.pub"
+            className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             onChange={formik.handleChange}
             value={formik.values.book.pub}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.book?.pub && formik.errors.book?.pub ? (
-            <div style={{ color: "red" }}>{formik.errors.book.pub}</div>
-          ) : null}
-        </Form.Group>
-      </Row>
-      <Form.Group className="mb-3" controlId="formImg">
-        <Form.Label>Book Cover Image</Form.Label>
-        <Form.Control
+          {formik.touched.book?.pub && formik.errors.book?.pub && (
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.book.pub}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="formImg" className="block text-gray-700 font-medium">
+          Book Cover Image
+        </label>
+        <input
           type="url"
+          id="formImg"
           placeholder="Masukkan URL Gambar"
           name="book.img"
+          className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           onChange={formik.handleChange}
           value={formik.values.book.img}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.book?.img && formik.errors.book?.img ? (
-          <div style={{ color: "red" }}>{formik.errors.book.img}</div>
-        ) : null}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formAbout">
-        <Form.Label>About</Form.Label>
-        <Form.Control
-          as="textarea"
+        {formik.touched.book?.img && formik.errors.book?.img && (
+          <p className="text-red-500 text-sm mt-1">{formik.errors.book.img}</p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="formAbout" className="block text-gray-700 font-medium">
+          About
+        </label>
+        <textarea
+          id="formAbout"
           placeholder="Masukkan Tentang Buku"
           rows={3}
           name="book.about"
+          className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           onChange={formik.handleChange}
           value={formik.values.book.about}
           onBlur={formik.handleBlur}
-        />
-        {formik.touched.book?.about && formik.errors.book?.about ? (
-          <div style={{ color: "red" }}>{formik.errors.book.about}</div>
-        ) : null}
-      </Form.Group>
-      <h1 className="text-xl font-black text-center mb-3 mt-6">
-        Author Details
+        ></textarea>
+        {formik.touched.book?.about && formik.errors.book?.about && (
+          <p className="text-red-500 text-sm mt-1">
+            {formik.errors.book.about}
+          </p>
+        )}
+      </div>
+
+      <h1 className="text-2xl font-bold text-center mt-12  mb-6">
+        Detail Penulis
       </h1>
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="formAuthorName">
-          <Form.Label>Author Name</Form.Label>
-          <Form.Control
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div>
+          <label
+            htmlFor="formAuthorName"
+            className="block text-gray-700 font-medium"
+          >
+            Author Name
+          </label>
+          <input
             type="text"
-            placeholder="Enter author name"
+            id="formAuthorName"
+            placeholder="Masukkan Nama Penulis"
             name="author.name"
+            className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             onChange={formik.handleChange}
             value={formik.values.author.name}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.author?.name && formik.errors.author?.name ? (
-            <div style={{ color: "red" }}>{formik.errors.author.name}</div>
-          ) : null}
-        </Form.Group>
-        <Form.Group as={Col} controlId="formAuthorBirth">
-          <Form.Label>Date of Birth</Form.Label>
-          <Form.Control
+          {formik.touched.author?.name && formik.errors.author?.name && (
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.author.name}
+            </p>
+          )}
+        </div>
+        <div>
+          <label
+            htmlFor="formAuthorBirth"
+            className="block text-gray-700 font-medium"
+          >
+            Date of Birth
+          </label>
+          <input
             type="date"
+            id="formAuthorBirth"
             name="author.birth"
+            className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             onChange={formik.handleChange}
             value={formik.values.author.birth}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.author?.name && formik.errors.author?.name ? (
-            <div style={{ color: "red" }}>{formik.errors.author.name}</div>
-          ) : null}
-        </Form.Group>
-      </Row>
-      <Form.Group className="mb-3" controlId="formAuthorImg">
-        <Form.Label>Author Image URL</Form.Label>
-        <Form.Control
+          {formik.touched.author?.birth && formik.errors.author?.birth && (
+            <p className="text-red-500 text-sm mt-1">
+              {formik.errors.author.birth}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label
+          htmlFor="formAuthorImg"
+          className="block text-gray-700 font-medium"
+        >
+          Author Image URL
+        </label>
+        <input
           type="text"
-          placeholder="Enter author image URL"
+          id="formAuthorImg"
+          placeholder="Masukkan URL Gambar Penulis"
           name="author.img"
+          className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           onChange={formik.handleChange}
           value={formik.values.author.img}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.author?.img && formik.errors.author?.img ? (
-          <div style={{ color: "red" }}>{formik.errors.author.img}</div>
-        ) : null}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBio">
-        <Form.Label>Biography</Form.Label>
-        <Form.Control
-          as="textarea"
-          placeholder="Enter biography"
+        {formik.touched.author?.img && formik.errors.author?.img && (
+          <p className="text-red-500 text-sm mt-1">
+            {formik.errors.author.img}
+          </p>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label
+          htmlFor="formAuthorBio"
+          className="block text-gray-700 font-medium"
+        >
+          Author Biography
+        </label>
+        <textarea
+          id="formAuthorBio"
+          placeholder="Masukkan Bigrafi Penulis"
           rows={3}
           name="author.bio"
+          className="mt-1 block w-full border-gray-300 p-2 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           onChange={formik.handleChange}
           value={formik.values.author.bio}
           onBlur={formik.handleBlur}
-        />
-        {formik.touched.author?.bio && formik.errors.author?.bio ? (
-          <div style={{ color: "red" }}>{formik.errors.author.bio}</div>
-        ) : null}
-      </Form.Group>
+        ></textarea>
+        {formik.touched.author?.bio && formik.errors.author?.bio && (
+          <p className="text-red-500 text-sm mt-1">
+            {formik.errors.author.bio}
+          </p>
+        )}
+      </div>
 
       <div className="flex justify-end">
-        <Button className="btn bg-blue-900" type="submit">
+        <button
+          type="submit"
+          className="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:ring focus:ring-blue-300"
+        >
           Submit
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   );
 }
 

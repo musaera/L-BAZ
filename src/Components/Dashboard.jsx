@@ -9,7 +9,7 @@ const Dashboard = () => {
 
   const getData = async () => {
     try {
-      const res = await axiosService.get("/users");
+      const res = await axiosService.get("/daftar-buku");
       if (res.status === 200) {
         setUser(res.data);
         setLoading(false);

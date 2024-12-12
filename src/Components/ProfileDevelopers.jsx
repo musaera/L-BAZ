@@ -2,22 +2,22 @@ const ProfileCards = () => {
   const profiles = [
     {
       name: "Adli Fathi Rayhan",
-      profession: "Frontend",
+      profession: "Frontend Engineer",
       image: "https://i.imgur.com/ZsKds9w.jpeg",
     },
     {
       name: "Muhamad Faiq Mustanir",
-      profession: "Fronted & UI/UX",
+      profession: "Frontend Engineer",
       image: "https://i.imgur.com/2kFfn7b.jpeg",
     },
     {
       name: "Diandra Vieri Dwi Airlangga",
-      profession: "Fullstack",
+      profession: "Frontend Engineer",
       image: "https://i.imgur.com/km4eBTP.jpeg",
     },
     {
       name: "Muhammad Saeful Ramadhan",
-      profession: "Backend",
+      profession: "Backend Engineer",
       image: "https://i.imgur.com/Kh4JcmR.jpeg",
     },
   ];
@@ -40,7 +40,9 @@ const ProfileCards = () => {
                 className="mb-4 h-32 w-32 rounded-full border-2 border-black object-cover"
               />
               {/* Nama */}
-              <h3 className="text-lg font-medium sm:text-xl text-center">{profile.name}</h3>
+              <h3 className="text-lg font-medium sm:text-xl text-center">
+                {profile.name}
+              </h3>
               {/* Profesi */}
               <p className="mt-2 text-sm text-gray-600">{profile.profession}</p>
             </div>

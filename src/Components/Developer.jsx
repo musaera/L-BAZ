@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "./NavBar"; // Pastikan jalur file NavBar sesuai
-import ProfileDevelopers from "./ProfileDevelopers"; // Pastikan jalur file ProfileDevelopers sesuai
+import NavBar from "./NavBar";
+import ProfileDevelopers from "./ProfileDevelopers";
 
 const Developer = () => {
   return (

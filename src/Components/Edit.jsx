@@ -35,7 +35,7 @@ function Create() {
   const getUserData = async () => {
     const { id } = params;
     try {
-      const response = await axiosService.get(`/users/${id}`);
+      const response = await axiosService.get(`/daftar-buku/${id}`);
       if (response.status === 200) {
         const { data } = response;
         setValues({
@@ -82,7 +82,7 @@ function Create() {
     onSubmit: async (values) => {
       try {
         const { id } = params;
-        const res = await axiosService.put(`users/${id}`, values);
+        const res = await axiosService.put(`daftar-buku/${id}`, values);
         if (res.status === 200) {
           navigate("/dashboard");
           console.log(res.data);
@@ -172,7 +172,7 @@ function Create() {
           <div style={{ color: "red" }}>{formik.errors.book.about}</div>
         ) : null}
       </Form.Group>
-      <h1 className="text-xl font-bold underline">Author Details</h1>
+      <h1 className="text-xl mt-6 font-bold underline">Author Details</h1>
       <Row className="mb-3">
         <Form.Group as={Col} controlId="formAuthorName">
           <Form.Label>Author Name</Form.Label>
